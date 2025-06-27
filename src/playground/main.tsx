@@ -82,5 +82,5 @@ const PlaygroundApp: React.FC = () => {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <PlaygroundApp />
-  </React.StrictMode>,
+  </React.StrictMode>
 );
