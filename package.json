@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "jotai": "^2.12.5",
-    "motion": "^12.19.2"
+    "motion": "^12.19.2",
+    "tailwind-merge": "^3.3.1"
   }
 }
