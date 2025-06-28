@@ -7,16 +7,44 @@ export const SPRING_SETTINGS: Transition = {
 };
 
 export const SESSIONS_MOCK: {
-  [key: string]: { title: string; date: string }[];
+  [key: string]: {
+    title: string;
+    date: string;
+    messages: { from: "user" | "elo"; content: string }[];
+  }[];
 } = {
   "mateuswsouza@gmail.com": [
     {
       title: "How to add my driver's license to my car insurrance",
       date: "2025-06-26",
+      messages: [
+        {
+          from: "user",
+          content: "How to add my driver's license to my car insurrance",
+        },
+        {
+          from: "elo",
+          content:
+            "I'm sorry, I can't help with that. I'm just a financial assistant.",
+        },
+        { from: "user", content: "What do you mean?" },
+        { from: "elo", content: "I'm just some mock data." },
+      ],
     },
     {
       title: "What are the taxes for buying grocceries in the USA",
       date: "2025-06-20",
+      messages: [
+        {
+          from: "user",
+          content: "What are the taxes for buying grocceries in the USA",
+        },
+        {
+          from: "elo",
+          content:
+            "I'm sorry, I can't help with that. I'm just a financial assistant.",
+        },
+      ],
     },
   ],
 };

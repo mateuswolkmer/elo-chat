@@ -1,22 +1,43 @@
 import React from "react";
-import { inputTextAtom, isWidgetOpenAtom } from "../atoms";
+import { currentSessionAtom, inputTextAtom, isWidgetOpenAtom } from "../atoms";
 import { useAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { SendIcon } from "./icons/SendIcon";
 import { twMerge } from "tailwind-merge";
 import { SPRING_SETTINGS } from "../constants";
+import { Message } from "../types";
 
 export type UserInputProps = {};
 
 export const UserInput: React.FC<UserInputProps> = () => {
   const [isOpen] = useAtom(isWidgetOpenAtom);
   const [inputText, setInputText] = useAtom(inputTextAtom);
+  const [_, setCurrentSession] = useAtom(currentSessionAtom);
 
   const isSendDisabled = !inputText.trim();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isSendDisabled) {
+      setCurrentSession((prev) => {
+        const newMessage: Message = { from: "user", content: inputText };
+        // TODO remove mock message
+        const newEloMessage: Message = {
+          from: "elo",
+          content: "I'm just some mock data.",
+        };
+
+        if (!prev)
+          return {
+            title: inputText,
+            messages: [newMessage, newEloMessage],
+            date: new Date().toISOString(),
+          };
+        return {
+          ...prev,
+          messages: [...prev.messages, newMessage, newEloMessage],
+        };
+      });
       setInputText("");
     }
   };

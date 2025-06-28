@@ -1,80 +1,84 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  sessionsAtom,
-  showPastSessionsAtom,
+  userSessionsAtom,
+  shouldShowPastSessionsAtom,
   signedInEmailAtom,
+  isPastSessionsOpenAtom,
+  currentSessionAtom,
 } from "../atoms";
 import { useAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { CollapseIcon } from "./icons/CollapseIcon";
 import { SPRING_SETTINGS } from "../constants";
 import { SignOutIcon } from "./icons/SignOutIcon";
+import { twMerge } from "tailwind-merge";
 
 export type PastSessionsProps = {};
 
 export const PastSessions: React.FC<PastSessionsProps> = () => {
-  const [sessions] = useAtom(sessionsAtom);
-  const [showPastSessions] = useAtom(showPastSessionsAtom);
+  const [sessions] = useAtom(userSessionsAtom);
+  const [currentSession, setCurrentSession] = useAtom(currentSessionAtom);
+  const [showPastSessions] = useAtom(shouldShowPastSessionsAtom);
   const [_, setSignedInEmail] = useAtom(signedInEmailAtom);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useAtom(isPastSessionsOpenAtom);
+
+  const handleSelectSession = (sessionIndex: number) => {
+    setCurrentSession(sessions[sessionIndex]);
+    setIsOpen(false);
+  };
+
+  const handleSignOut = () => {
+    setSignedInEmail(null);
+    setCurrentSession(null);
+  };
 
   return (
     <AnimatePresence>
       {showPastSessions && (
         <>
-          <motion.div
-            initial={{
-              scale: 0,
-              opacity: 0,
-            }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-            }}
-            exit={{
-              scale: 0,
-              opacity: 0,
-              transition: {
-                delay: 0,
-              },
-            }}
-            transition={SPRING_SETTINGS}
-            style={{
-              transformOrigin: "bottom right",
-            }}
-            className="absolute bottom-20 right-0 flex gap-2"
-          >
-            {/* Sign out button */}
-            <motion.button
-              initial={{ opacity: 0, x: 10 }}
+          {!isOpen && (
+            <motion.div
+              initial={{
+                scale: 0,
+                opacity: 0,
+              }}
               animate={{
-                opacity: isOpen ? 0 : 1,
-                scale: isOpen ? 0 : 1,
-                x: 0,
+                scale: 1,
+                opacity: 1,
               }}
-              transition={{
-                opacity: { delay: 0.5 },
-                x: { delay: 0.5 },
+              exit={{
+                scale: 0,
+                opacity: 0,
               }}
-              className="text-nowrap h-10 rounded-full bg-primary p-2 dark text-foreground"
-              onClick={() => setSignedInEmail(null)}
+              transition={SPRING_SETTINGS}
+              style={{
+                transformOrigin: "bottom right",
+              }}
+              className="absolute bottom-20 right-0 flex gap-2"
             >
-              <SignOutIcon className="size-6" />
-            </motion.button>
-            {/* Sessions button */}
-            <motion.button
-              className="text-nowrap h-10 rounded-full bg-primary py-2 px-4 dark text-foreground"
-              onClick={() => setIsOpen(true)}
-              animate={{
-                opacity: isOpen ? 0 : 1,
-                scale: isOpen ? 0.8 : 1,
-              }}
-              transition={{ duration: 0.2 }}
-            >
-              Past sessions
-            </motion.button>
-          </motion.div>
+              {/* Sign out button */}
+              <motion.button
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  ...SPRING_SETTINGS,
+                  delay: 0.5,
+                }}
+                className="text-nowrap h-10 rounded-full bg-primary p-2 dark text-foreground"
+                onClick={handleSignOut}
+              >
+                <SignOutIcon className="size-6" />
+              </motion.button>
+              {/* Sessions button */}
+              <button
+                className="text-nowrap h-10 rounded-full bg-primary py-2 px-4 dark text-foreground"
+                onClick={() => setIsOpen(true)}
+              >
+                Past sessions
+              </button>
+            </motion.div>
+          )}
           {/* Sessions list */}
           <AnimatePresence>
             {isOpen && (
@@ -101,7 +105,7 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                 className="absolute bottom-20 right-0 w-60 py-2 bg-primary dark text-foreground rounded-3xl overflow-hidden"
               >
                 <motion.div
-                  className="flex flex-col gap-1 size-full"
+                  className="flex flex-col size-full"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -123,35 +127,49 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                       <CollapseIcon className="size-6" />
                     </button>
                   </div>
-                  <div className="w-full h-px bg-foreground/15"></div>
+                  <div className="w-full h-px bg-foreground/15 mt-1"></div>
                   {!sessions?.length && (
                     <p className="text-sm py-4 text-center">No sessions yet</p>
                   )}
-                  {sessions?.map((session, i) => (
-                    <motion.div
-                      key={session.title}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 + i * 0.05 }}
-                      className="flex flex-col px-2 py-1 gap-2 rounded-lg hover:bg-primary/10 w-full"
-                    >
-                      {i > 0 && (
-                        <div className="w-full h-px bg-foreground/15"></div>
-                      )}
-                      <div
-                        className="flex flex-col cursor-pointer"
-                        title={session.title}
+                  {sessions?.map((session, i) => {
+                    const isActive = currentSession?.title === session.title;
+
+                    return (
+                      <motion.div
+                        key={session.title}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 + i * 0.05 }}
+                        className="flex flex-col rounded-lg w-full"
                       >
-                        <h3 className="text-md truncate">{session.title}</h3>
-                        <span className="text-foreground/50 text-xs">
-                          {new Date(session.date).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </span>
-                      </div>
-                    </motion.div>
-                  ))}
+                        {i > 0 && (
+                          <div className="w-full h-px bg-foreground/15 mx-2"></div>
+                        )}
+                        <button
+                          className={twMerge(
+                            "flex flex-col items-start w-full px-4 py-2 transition-colors cursor-pointer",
+                            isActive ? "bg-info/50" : "hover:bg-info/25 "
+                          )}
+                          title={session.title}
+                          onClick={() => handleSelectSession(i)}
+                        >
+                          <h3 className="text-md truncate w-full">
+                            {session.title}
+                          </h3>
+                          <span className="text-foreground/50 text-xs">
+                            {new Date(session.date).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "short",
+                                day: "numeric",
+                              }
+                            )}{" "}
+                            {isActive && "• Active"}
+                          </span>
+                        </button>
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
               </motion.div>
             )}

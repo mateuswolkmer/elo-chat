@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { showEmailInputAtom, signedInEmailAtom } from "../atoms";
+import { shouldShowEmailInputAtom, signedInEmailAtom } from "../atoms";
 import { useAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { SPRING_SETTINGS } from "../constants";
@@ -10,11 +10,12 @@ import { validateEmail } from "../utils/emailValidation";
 export type EmailInputProps = {};
 
 export const EmailInput: React.FC<EmailInputProps> = () => {
-  const [showEmailInput] = useAtom(showEmailInputAtom);
+  const [showEmailInput] = useAtom(shouldShowEmailInputAtom);
   const [_, setSignedInEmail] = useAtom(signedInEmailAtom);
 
   const [email, setEmail] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [validationResult, setValidationResult] = useState<{
     isValid: boolean;
@@ -50,7 +51,7 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
           }}
           animate={{
             scale: 1,
-            opacity: 1,
+            opacity: isFocused || isHovered ? 1 : 0.5,
             right: isExpanded ? "calc(var(--spacing) * 2.5)" : "0rem",
             width: isExpanded
               ? "calc(var(--spacing) * 60)"
@@ -70,7 +71,7 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
             },
             opacity: {
               ...SPRING_SETTINGS,
-              delay: 0.5,
+              // delay: 0.5,
             },
             right: { ...SPRING_SETTINGS, damping: 20 },
             width: { ...SPRING_SETTINGS, duration: 0.1 },
@@ -90,6 +91,8 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
                 !isExpanded && "col-span-2 z-1"
               )}
               placeholder="test@email.com"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               value={email}

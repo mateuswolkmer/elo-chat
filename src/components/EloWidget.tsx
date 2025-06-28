@@ -1,31 +1,37 @@
 import React, { useRef } from "react";
 import { useAtom } from "jotai";
 import { useClickOutside } from "../hooks/useClickOutside";
-import { isWidgetOpenAtom } from "../atoms";
+import { isPastSessionsOpenAtom, isWidgetOpenAtom } from "../atoms";
 import { UserInput } from "./UserInput";
 import { PastSessions } from "./PastSessions";
 import { EmailInput } from "./EmailInput";
 import { motion } from "motion/react";
 import { SPRING_SETTINGS } from "../constants";
+import { MessagesList } from "./MessagesList";
 
 export type EloWidgetProps = {};
 
 export const EloWidget: React.FC<EloWidgetProps> = () => {
   const [isOpen, setIsOpen] = useAtom(isWidgetOpenAtom);
+  const [_, setIsPastSessionsOpen] = useAtom(isPastSessionsOpenAtom);
   const widgetRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(widgetRef, () => setIsOpen(false), isOpen);
+  const handleClose = () => {
+    setIsOpen(false);
+    setIsPastSessionsOpen(false);
+  };
+
+  useClickOutside(widgetRef, handleClose, isOpen);
 
   return (
     <motion.div
       ref={widgetRef}
-      initial={{ scale: 0, rotate: 90 }}
-      animate={{ scale: 1, rotate: 0 }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
       whileHover={{ scale: 1.05, transition: { delay: 0 } }}
-      whileTap={{ rotate: isOpen ? 0 : -20 }}
       transition={{
-        scale: { ...SPRING_SETTINGS, delay: 0.5 },
-        rotate: { ...SPRING_SETTINGS },
+        ...SPRING_SETTINGS,
+        delay: 0.5,
       }}
       className="absolute bottom-10 right-10 text-foreground"
       onClick={() => setIsOpen(true)}
@@ -52,6 +58,7 @@ export const EloWidget: React.FC<EloWidgetProps> = () => {
       <UserInput />
       <EmailInput />
       <PastSessions />
+      <MessagesList />
     </motion.div>
   );
 };
