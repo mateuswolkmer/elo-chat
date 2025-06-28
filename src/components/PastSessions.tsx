@@ -6,7 +6,7 @@ import {
   isPastSessionsOpenAtom,
   currentSessionAtom,
 } from "../atoms";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { CollapseIcon } from "./icons/CollapseIcon";
 import { SPRING_SETTINGS } from "../constants";
@@ -16,10 +16,10 @@ import { twMerge } from "tailwind-merge";
 export type PastSessionsProps = {};
 
 export const PastSessions: React.FC<PastSessionsProps> = () => {
-  const [sessions] = useAtom(userSessionsAtom);
+  const sessions = useAtomValue(userSessionsAtom);
   const [currentSession, setCurrentSession] = useAtom(currentSessionAtom);
-  const [showPastSessions] = useAtom(shouldShowPastSessionsAtom);
-  const [_, setSignedInEmail] = useAtom(signedInEmailAtom);
+  const showPastSessions = useAtomValue(shouldShowPastSessionsAtom);
+  const setSignedInEmail = useSetAtom(signedInEmailAtom);
 
   const [isOpen, setIsOpen] = useAtom(isPastSessionsOpenAtom);
 

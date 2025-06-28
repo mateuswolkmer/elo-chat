@@ -6,6 +6,24 @@ export const SPRING_SETTINGS: Transition = {
   damping: 30,
 };
 
+export const SERVICE_STATUS = {
+  online: {
+    color: "primary-light",
+    label: "online",
+    inputPlaceholder: "I'm Elo, your financial asistant!",
+  },
+  maintenance: {
+    color: "secondary-light",
+    label: "maintenance",
+    inputPlaceholder: "Elos is going under maintenance.",
+  },
+  offline: {
+    color: "secondary",
+    label: "offline",
+    inputPlaceholder: "Elos is currently offline.",
+  },
+} as const;
+
 export const SESSIONS_MOCK: {
   [key: string]: {
     title: string;

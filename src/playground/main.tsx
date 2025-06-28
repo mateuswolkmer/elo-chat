@@ -74,7 +74,10 @@ const PlaygroundApp: React.FC = () => {
         </div>
       </main>
 
-      <EloWidget />
+      <EloWidget
+        googleApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
+        googleModelId="gemini-2.5-flash"
+      />
     </div>
   );
 };

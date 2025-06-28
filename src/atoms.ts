@@ -30,15 +30,13 @@ export const userSessionsAtom = atom<Session[]>((get) => {
 // layout atoms
 export const isPastSessionsOpenAtom = atom(false);
 
-export const shouldShowUserInputAtom = atom((get) => {
-  return get(isWidgetOpenAtom);
-});
-export const shouldShowMessagesListAtom = atom((get) => {
-  return get(isWidgetOpenAtom) && !get(isPastSessionsOpenAtom);
-});
-export const shouldShowEmailInputAtom = atom((get) => {
-  return get(isWidgetOpenAtom) && !Boolean(get(signedInEmailAtom));
-});
-export const shouldShowPastSessionsAtom = atom((get) => {
-  return get(isWidgetOpenAtom) && Boolean(get(signedInEmailAtom));
-});
+export const shouldShowUserInputAtom = atom((get) => get(isWidgetOpenAtom));
+export const shouldShowMessagesListAtom = atom(
+  (get) => get(isWidgetOpenAtom) && !get(isPastSessionsOpenAtom)
+);
+export const shouldShowEmailInputAtom = atom(
+  (get) => get(isWidgetOpenAtom) && !Boolean(get(signedInEmailAtom))
+);
+export const shouldShowPastSessionsAtom = atom(
+  (get) => get(isWidgetOpenAtom) && Boolean(get(signedInEmailAtom))
+);

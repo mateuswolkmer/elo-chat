@@ -1,12 +1,12 @@
 import { currentSessionAtom, shouldShowMessagesListAtom } from "../atoms";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { SPRING_SETTINGS } from "../constants";
 import { twMerge } from "tailwind-merge";
 
 export const MessagesList: React.FC = () => {
-  const [currentSession] = useAtom(currentSessionAtom);
-  const [shouldShow] = useAtom(shouldShowMessagesListAtom);
+  const currentSession = useAtomValue(currentSessionAtom);
+  const shouldShow = useAtomValue(shouldShowMessagesListAtom);
 
   return (
     <AnimatePresence>

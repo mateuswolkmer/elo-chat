@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { shouldShowEmailInputAtom, signedInEmailAtom } from "../atoms";
-import { useAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { SPRING_SETTINGS } from "../constants";
 import { twMerge } from "tailwind-merge";
@@ -10,8 +10,8 @@ import { validateEmail } from "../utils/emailValidation";
 export type EmailInputProps = {};
 
 export const EmailInput: React.FC<EmailInputProps> = () => {
-  const [showEmailInput] = useAtom(shouldShowEmailInputAtom);
-  const [_, setSignedInEmail] = useAtom(signedInEmailAtom);
+  const showEmailInput = useAtomValue(shouldShowEmailInputAtom);
+  const setSignedInEmail = useSetAtom(signedInEmailAtom);
 
   const [email, setEmail] = useState("");
   const [isFocused, setIsFocused] = useState(false);
@@ -87,7 +87,7 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
             <input
               type="email"
               className={twMerge(
-                "w-full h-full rounded-full py-2 pl-4 focus:outline-none text-sm col-start-1 row-start-1",
+                "w-full h-full rounded-full py-2 pl-4 focus:outline-none text-sm col-start-1 row-start-1 placeholder:text-foreground/25",
                 !isExpanded && "col-span-2 z-1"
               )}
               placeholder="test@email.com"
