@@ -65,7 +65,7 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           delay: 0.5,
         }}
         className={twMerge(
-          "elo:fixed elo:bottom-4 elo:right-4 elo:lg:bottom-10 elo:lg:right-10 elo:text-foreground elo:z-10 elo:group",
+          "elo:fixed elo:bottom-4 elo:right-4 elo:lg:bottom-10 elo:lg:right-10 elo:text-foreground elo:z-50 elo:group",
           className
         )}
         onClick={() => setIsOpen(true)}

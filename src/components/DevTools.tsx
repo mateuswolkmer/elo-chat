@@ -8,7 +8,7 @@ export const DevTools: React.FC = () => {
   const [serviceStatus, setServiceStatus] = useAtom(serviceStatusAtom);
 
   return (
-    <div className="elo:fixed elo:flex elo:flex-col elo:gap-1 elo:left-10 elo:bottom-10 elo:w-60 elo:p-2 elo:bg-background-dark elo:text-foreground-dark elo:rounded-lg elo:overflow-hidden elo:text-sm elo:opacity-50 elo:hover:opacity-100 elo:transition-opacity">
+    <div className="elo:fixed elo:flex elo:flex-col elo:gap-1 elo:left-10 elo:bottom-10 elo:w-60 elo:p-2 elo:bg-background-dark elo:text-foreground-dark elo:rounded-lg elo:overflow-hidden elo:text-sm elo:opacity-50 elo:hover:opacity-100 elo:transition-opacity elo:z-50">
       <h2 className="elo:text-center elo:font-bold">Elo Widget dev tools</h2>
 
       <div className="elo:w-full elo:h-px elo:bg-foreground-dark/15 elo:mt-1"></div>
