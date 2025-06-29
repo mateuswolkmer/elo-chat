@@ -102,10 +102,10 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
             <input
               type="email"
               className={twMerge(
-                "w-full h-full rounded-full py-2 pl-4 focus:outline-none text-sm col-start-1 row-start-1 placeholder:text-foreground/25",
+                "w-full h-full rounded-full py-2 pl-4 focus:outline-none text-sm col-start-1 row-start-1 placeholder:text-foreground/50",
                 !isExpanded && "col-span-2 z-1"
               )}
-              placeholder="test@email.com"
+              placeholder="your@email.com"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               onFocus={() => setIsFocused(true)}

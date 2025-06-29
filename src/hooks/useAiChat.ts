@@ -5,6 +5,7 @@ import {
   isPastSessionsOpenAtom,
   serviceStatusAtom,
   signedInEmailAtom,
+  currentSessionAtom,
 } from "../atoms";
 import { chat } from "../api/chat";
 import { UIMessage } from "ai";
@@ -15,6 +16,7 @@ export const useAiChat = () => {
   const isServiceOnline = useAtomValue(serviceStatusAtom) === "online";
   const [inputText, setInputText] = useAtom(inputTextAtom);
   const signedInEmail = useAtomValue(signedInEmailAtom);
+  const currentSession = useAtomValue(currentSessionAtom);
   const [isLoading, setIsLoading] = useState(false);
   const setIsPastSessionsOpen = useSetAtom(isPastSessionsOpenAtom);
 
@@ -39,7 +41,8 @@ export const useAiChat = () => {
 
         sessionDispatch({ type: "ADD_MESSAGE", message: newUserMessage });
 
-        const existingMessages: UIMessage[] = [];
+        // Get all existing messages from the current session
+        const existingMessages: UIMessage[] = currentSession?.messages || [];
 
         const allMessages = [...existingMessages, newUserMessage];
 

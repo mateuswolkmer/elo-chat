@@ -39,7 +39,7 @@ export const UserInput: React.FC<UserInputProps> = () => {
           <div className="relative size-full grid grid-cols-[1fr_auto] gap-2">
             <input
               type="text"
-              className="w-full h-full rounded-full py-2 px-4 focus:outline-none placeholder:text-foreground/25"
+              className="w-full h-full rounded-full py-2 px-4 focus:outline-none placeholder:text-foreground/50"
               placeholder={SERVICE_STATUS[serviceStatus].inputPlaceholder}
               autoFocus
               value={inputText}

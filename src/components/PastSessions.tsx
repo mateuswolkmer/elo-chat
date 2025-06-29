@@ -5,7 +5,7 @@ import {
   signedInEmailAtom,
   isPastSessionsOpenAtom,
 } from "../atoms";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { CollapseIcon } from "./icons/CollapseIcon";
 import { SPRING_SETTINGS } from "../constants";
@@ -19,8 +19,7 @@ export type PastSessionsProps = {};
 export const PastSessions: React.FC<PastSessionsProps> = () => {
   const sessions = useAtomValue(userSessionsAtom);
   const showPastSessions = useAtomValue(shouldShowPastSessionsAtom);
-  const setSignedInEmail = useSetAtom(signedInEmailAtom);
-  const signedInEmail = useAtomValue(signedInEmailAtom);
+  const [signedInEmail, setSignedInEmail] = useAtom(signedInEmailAtom);
 
   const [isOpen, setIsOpen] = useAtom(isPastSessionsOpenAtom);
   const { currentSession, sessionDispatch } = useSessionReducer(signedInEmail);
@@ -190,6 +189,9 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                       </motion.div>
                     );
                   })}
+                  <span className="text-center text-sm opacity-50 mt-1">
+                    {signedInEmail}
+                  </span>
                 </motion.div>
               </motion.div>
             )}
