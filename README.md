@@ -108,6 +108,7 @@ function App() {
    ```
 
 4. **Start development server**
+   There is a test page consuming the component in `src/playground/main.tsx`. To start it, run:
    ```bash
    npm run dev
    ```
