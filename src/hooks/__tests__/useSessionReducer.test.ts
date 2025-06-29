@@ -167,7 +167,7 @@ describe("useSessionReducer", () => {
     expect(result.current.currentSession).toEqual(newSession);
   });
 
-  it("should initialize user with mock data", () => {
+  it("should initialize user with empty array", () => {
     const { result } = renderHook(() => useSessionReducer("test@example.com"), {
       wrapper: Provider,
     });
@@ -179,8 +179,8 @@ describe("useSessionReducer", () => {
       });
     });
 
-    // Should have initialized with mock data
-    expect(result.current.allUserSessions["test@example.com"]).toBeDefined();
+    // Should have initialized with empty array
+    expect(result.current.allUserSessions["test@example.com"]).toEqual([]);
   });
 
   it("should handle null signedInEmail gracefully", () => {

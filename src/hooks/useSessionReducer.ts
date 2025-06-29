@@ -3,7 +3,6 @@ import { useAtom } from "jotai";
 import { allUserSessionsAtom, currentSessionAtom } from "../atoms";
 import { Session } from "../types";
 import { UIMessage } from "ai";
-import { SESSIONS_MOCK } from "../constants";
 
 type SessionActionWithoutEmail =
   | { type: "ADD_MESSAGE"; message: UIMessage }
@@ -112,7 +111,7 @@ const sessionReducer = (
       if (!state[email]) {
         return {
           ...state,
-          [email]: SESSIONS_MOCK[email] || [],
+          [email]: [],
         };
       }
       return state;

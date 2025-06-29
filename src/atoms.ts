@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { SESSIONS_MOCK } from "./constants";
 import { Session } from "./types";
 import { atomWithStorage } from "jotai/utils";
 
@@ -23,7 +22,6 @@ export const currentSessionAtom = atomWithStorage<Session | null>(
   null
 );
 
-// Store all user sessions in localStorage
 export const allUserSessionsAtom = atomWithStorage<{
   [email: string]: Session[];
 }>("elo_allUserSessions", {});
@@ -34,11 +32,7 @@ export const userSessionsAtom = atom<Session[]>((get) => {
 
   if (!email) return [];
 
-  if (!allSessions[email]) {
-    return SESSIONS_MOCK[email] || [];
-  }
-
-  return allSessions[email];
+  return allSessions[email] || [];
 });
 
 // layout atoms
