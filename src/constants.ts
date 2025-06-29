@@ -1,10 +1,13 @@
 import { Transition } from "motion";
+import { UIMessage } from "ai";
 
 export const SPRING_SETTINGS: Transition = {
   type: "spring",
   stiffness: 300,
   damping: 30,
 };
+
+export const THINKING_MESSAGE = "Thinking...";
 
 export const SERVICE_STATUS = {
   online: {
@@ -15,12 +18,12 @@ export const SERVICE_STATUS = {
   maintenance: {
     color: "secondary-light",
     label: "maintenance",
-    inputPlaceholder: "Elos is going under maintenance.",
+    inputPlaceholder: "Elo is going under maintenance.",
   },
   offline: {
     color: "secondary",
     label: "offline",
-    inputPlaceholder: "Elos is currently offline.",
+    inputPlaceholder: "Elo is currently offline.",
   },
 } as const;
 
@@ -28,7 +31,7 @@ export const SESSIONS_MOCK: {
   [key: string]: {
     title: string;
     date: string;
-    messages: { from: "user" | "elo"; content: string }[];
+    messages: UIMessage[];
   }[];
 } = {
   "mateuswsouza@gmail.com": [
@@ -37,16 +40,35 @@ export const SESSIONS_MOCK: {
       date: "2025-06-26",
       messages: [
         {
-          from: "user",
-          content: "How to add my driver's license to my car insurrance",
+          role: "user",
+          parts: [
+            {
+              type: "text",
+              text: "How to add my driver's license to my car insurrance",
+            },
+          ],
+          id: "msg-0",
         },
         {
-          from: "elo",
-          content:
-            "I'm sorry, I can't help with that. I'm just a financial assistant.",
+          role: "assistant",
+          parts: [
+            {
+              type: "text",
+              text: "I'm sorry, I can't help with that. I'm just a financial assistant.",
+            },
+          ],
+          id: "msg-1",
         },
-        { from: "user", content: "What do you mean?" },
-        { from: "elo", content: "I'm just some mock data." },
+        {
+          role: "user",
+          parts: [{ type: "text", text: "What do you mean?" }],
+          id: "msg-2",
+        },
+        {
+          role: "assistant",
+          parts: [{ type: "text", text: "I'm just some mock data." }],
+          id: "msg-3",
+        },
       ],
     },
     {
@@ -54,13 +76,24 @@ export const SESSIONS_MOCK: {
       date: "2025-06-20",
       messages: [
         {
-          from: "user",
-          content: "What are the taxes for buying grocceries in the USA",
+          role: "user",
+          parts: [
+            {
+              type: "text",
+              text: "What are the taxes for buying grocceries in the USA",
+            },
+          ],
+          id: "msg-0",
         },
         {
-          from: "elo",
-          content:
-            "I'm sorry, I can't help with that. I'm just a financial assistant.",
+          role: "assistant",
+          parts: [
+            {
+              type: "text",
+              text: "I'm sorry, I can't help with that. I'm just a financial assistant.",
+            },
+          ],
+          id: "msg-1",
         },
       ],
     },

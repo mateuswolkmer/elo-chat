@@ -19,6 +19,7 @@ export const DevTools: React.FC = () => {
 
         return (
           <button
+            key={status}
             className={twMerge(
               "text-left border-1 rounded-md flex gap-2 px-2 items-center cursor-pointer",
               isActive ? `border-[var(--color)]` : `border-[var(--color)]/25`

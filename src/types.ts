@@ -1,10 +1,7 @@
-export type Message = {
-  from: "user" | "elo";
-  content: string;
-};
+import { UIMessage } from "ai";
 
 export type Session = {
   title: string;
   date: string;
-  messages: Message[];
+  messages: UIMessage[];
 };
