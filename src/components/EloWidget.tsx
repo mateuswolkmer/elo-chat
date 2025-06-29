@@ -65,7 +65,7 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           delay: 0.5,
         }}
         className={twMerge(
-          "fixed bottom-10 right-10 text-foreground z-10",
+          "fixed bottom-10 right-10 text-foreground z-10 group",
           className
         )}
         onClick={() => setIsOpen(true)}
@@ -79,6 +79,14 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           xmlns="http://www.w3.org/2000/svg"
           className="cursor-pointer"
         >
+          <defs>
+            <clipPath id="elo-clip">
+              <path
+                d="M19.6436 7.65217C13.2225 7.65217 8.16525 12.8269 8.16525 19.1304C8.16525 26.5824 14.1045 32.5217 21.5567 32.5217V24.8696C25.9015 24.8696 29.2088 21.5659 29.2088 17.2174C29.2088 11.6978 25.1896 7.65217 19.6436 7.65217Z"
+                transform="scale(1.75)"
+              />
+            </clipPath>
+          </defs>
           <path
             className={twMerge(
               "transition-all",
@@ -98,7 +106,34 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
             d="M19.6436 7.65217C13.2225 7.65217 8.16525 12.8269 8.16525 19.1304C8.16525 26.5824 14.1045 32.5217 21.5567 32.5217V24.8696C25.9015 24.8696 29.2088 21.5659 29.2088 17.2174C29.2088 11.6978 25.1896 7.65217 19.6436 7.65217Z"
           />
         </svg>
-        {/* TODO: add animated waves */}
+        <div
+          className="absolute inset-0 size-full overflow-hidden pointer-events-none"
+          style={{
+            clipPath: "url(#elo-clip)",
+            WebkitClipPath: "url(#elo-clip)",
+          }}
+        >
+          <div
+            className={twMerge(
+              "absolute right-4 rounded-3xl size-full bg-gradient-to-bl to-background/10 opacity-25 group-hover:opacity-100 transition-all duration-1000",
+              isServiceOnline &&
+                "from-secondary/50 top-6 animate-[spin_10s_linear_infinite] ",
+              isServiceMaintenance &&
+                "from-secondary-light/50 top-8 animate-[spin_20s_linear_infinite] ",
+              isServiceOffline && "from-secondary-light/50 top-10"
+            )}
+          />
+          <div
+            className={twMerge(
+              "absolute left-4 rounded-3xl size-full bg-gradient-to-br to-background/10 opacity-25 group-hover:opacity-100 transition-all duration-1000",
+              isServiceOnline &&
+                "from-secondary top-6 animate-[spin_5s_linear_infinite]",
+              isServiceMaintenance &&
+                "from-secondary-light top-8 animate-[spin_15s_linear_infinite]",
+              isServiceOffline && "from-secondary-light top-10"
+            )}
+          />
+        </div>
 
         <UserInput />
         {isServiceOnline && <EmailInput />}

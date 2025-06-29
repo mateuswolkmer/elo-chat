@@ -37,7 +37,18 @@ export const MessagesList: React.FC = () => {
           style={{
             transformOrigin: "bottom right",
           }}
-          className="flex flex-col gap-2 absolute bottom-40 right-0 w-96 max-h-[50vh] overflow-y-auto rounded-lg"
+          className="flex flex-col gap-2 absolute bottom-40 right-0 w-96 max-h-[50vh] rounded-lg"
+          // without this, it always adds a scrollbar during animationx
+          onAnimationComplete={() => {
+            if (containerRef.current) {
+              containerRef.current.style.overflowY = "auto";
+            }
+          }}
+          onAnimationStart={() => {
+            if (containerRef.current) {
+              containerRef.current.style.overflowY = "hidden";
+            }
+          }}
         >
           {currentSession?.messages.map((message, i) => {
             const messageText = message.parts.find(
