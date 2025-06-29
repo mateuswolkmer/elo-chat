@@ -100,6 +100,7 @@ function App() {
    ```
 
 3. **Set up environment variables**
+
    Create a `.env` file in the root directory:
 
    ```bash
@@ -108,7 +109,9 @@ function App() {
    ```
 
 4. **Start development server**
+
    There is a test page consuming the component in `src/playground/main.tsx`. To start it, run:
+
    ```bash
    npm run dev
    ```
