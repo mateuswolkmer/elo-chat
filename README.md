@@ -39,6 +39,11 @@ function App() {
 }
 ```
 
+The components needs Javascript, so if using server-side rendering, you need to hydrate it.
+
+- Next.js: `"use client`"
+- Astro: `client:visible`
+
 ## Configuration
 
 ### Props
