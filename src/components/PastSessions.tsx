@@ -4,7 +4,6 @@ import {
   shouldShowPastSessionsAtom,
   signedInEmailAtom,
   isPastSessionsOpenAtom,
-  currentSessionAtom,
 } from "../atoms";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
@@ -12,25 +11,39 @@ import { CollapseIcon } from "./icons/CollapseIcon";
 import { SPRING_SETTINGS } from "../constants";
 import { SignOutIcon } from "./icons/SignOutIcon";
 import { twMerge } from "tailwind-merge";
+import { useSessionReducer } from "../hooks/useSessionReducer";
+import { NewIcon } from "./icons/NewIcon";
 
 export type PastSessionsProps = {};
 
 export const PastSessions: React.FC<PastSessionsProps> = () => {
   const sessions = useAtomValue(userSessionsAtom);
-  const [currentSession, setCurrentSession] = useAtom(currentSessionAtom);
   const showPastSessions = useAtomValue(shouldShowPastSessionsAtom);
   const setSignedInEmail = useSetAtom(signedInEmailAtom);
+  const signedInEmail = useAtomValue(signedInEmailAtom);
 
   const [isOpen, setIsOpen] = useAtom(isPastSessionsOpenAtom);
+  const { currentSession, sessionDispatch } = useSessionReducer(signedInEmail);
 
   const handleSelectSession = (sessionIndex: number) => {
-    setCurrentSession(sessions[sessionIndex]);
+    sessionDispatch({ type: "SET_SESSION", session: sessions[sessionIndex] });
     setIsOpen(false);
   };
 
   const handleSignOut = () => {
     setSignedInEmail(null);
-    setCurrentSession(null);
+    sessionDispatch({ type: "SET_SESSION", session: null });
+  };
+
+  const handleNewSession = () => {
+    const newSession = {
+      title: "New Session",
+      date: new Date().toISOString(),
+      messages: [],
+    };
+
+    sessionDispatch({ type: "SET_SESSION", session: newSession });
+    setIsOpen(false);
   };
 
   return (
@@ -75,7 +88,7 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                 className="text-nowrap h-10 rounded-full bg-primary py-2 px-4 dark text-foreground"
                 onClick={() => setIsOpen(true)}
               >
-                Past sessions
+                Sessions
               </button>
             </motion.div>
           )}
@@ -112,13 +125,20 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                   transition={{ delay: 0.1 }}
                 >
                   <div className="relative">
+                    <button
+                      className="absolute top-0 left-2 cursor-pointer hover:scale-105 transition-transform"
+                      title="New session"
+                      onClick={handleNewSession}
+                    >
+                      <NewIcon className="size-6" />
+                    </button>
                     <motion.h2
                       className="font-bold text-center"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.3 }}
                     >
-                      Past sessions
+                      Sessions
                     </motion.h2>
                     <button
                       className="absolute top-0 right-2 cursor-pointer hover:scale-105 transition-transform"
@@ -147,7 +167,7 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                         )}
                         <button
                           className={twMerge(
-                            "flex flex-col items-start w-full px-4 py-2 transition-colors cursor-pointer",
+                            "flex flex-col items-start w-full px-4 py-2 transition-colors cursor-pointer text-left",
                             isActive ? "bg-info/50" : "hover:bg-info/25 "
                           )}
                           title={session.title}

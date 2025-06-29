@@ -1,6 +1,15 @@
 # EloChat
 
-A React component that adds a financial assistant chat widget to your website.
+A React component that adds Elo, a financial assistant chat widget, to your website.
+
+## Features
+
+- 💬 Financial assistant chat powered by Google Gemini
+- 🎨 Animated UI with Tailwind CSS and Motion
+- Customizable colors 💄
+- 📱 Responsive design
+- 📧 Email-based session management (local)
+- 💾 Persistent chat sessions
 
 ## Installation
 
@@ -17,7 +26,7 @@ function App() {
   return (
     <div>
       <h1>My Website</h1>
-      <EloWidget openaiApiKey="your-openai-api-key-here" />
+      <EloWidget openaiApiKey={process.env.VITE_GOOGLE_API_KEY} />
     </div>
   );
 }
@@ -25,11 +34,30 @@ function App() {
 
 ## Configuration
 
-### Required Props
+### Props
 
-- `openaiApiKey` (string): Your OpenAI API key for the chat functionality
+- `googleApiKey` (string)\*: your Google API key
+- `googleApiModel` (string): the Google API model to use. Defaults to "gemini-2.5-flash"
 
-### Example with Environment Variables
+### Styling
+
+It's possible to modify the widget styles via CSS variables, powered by [Tailwind CSS theme variables](https://tailwindcss.com/docs/theme). These are the default variables:
+
+```css
+--color-primary: #6f33b7;
+--color-primary-light: #d1b5ff;
+--color-secondary: #eb6c52;
+--color-secondary-light: #ffdfc5;
+--color-success: #0fdb9b;
+--color-success-light: #9fffe0;
+--color-info: #53acd0;
+--color-background: #faf7f2;
+--color-foreground: #262623;
+```
+
+The widget initial animation can also be customized through [`motion.div`](https://motion.dev/docs/react-motion-component) props.
+
+#### Example
 
 ```tsx
 import { EloWidget } from "@zuzu.blue/elo-chat";
@@ -38,7 +66,16 @@ function App() {
   return (
     <div>
       <h1>My Website</h1>
-      <EloWidget openaiApiKey={process.env.REACT_APP_OPENAI_API_KEY} />
+      <EloWidget
+        googleApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
+        style={
+          {
+            "--color-primary": "red",
+            "--color-primary-light": "orange",
+          } as CSSProperties
+        }
+        transition={{ duration: 0 }} // disables the initial animation
+      />
     </div>
   );
 }
@@ -65,8 +102,8 @@ function App() {
    Create a `.env` file in the root directory:
 
    ```bash
-   # OpenAI API Key for EloChat
-   OPENAI_API_KEY=your-actual-openai-api-key-here
+   # Google API Key for EloChat
+   VITE_GOOGLE_API_KEY=...
    ```
 
 4. **Start development server**
@@ -89,15 +126,6 @@ npm run build
 # Run tests
 npm test
 ```
-
-## Features
-
-- 💬 Financial assistant chat powered by OpenAI
-- 🎨 Beautiful, animated UI with Tailwind CSS
-- 📱 Responsive design
-- 🔐 Secure API key handling
-- 📧 Email-based session management
-- 💾 Persistent chat history
 
 ## License
 

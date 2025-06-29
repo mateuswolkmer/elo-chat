@@ -1,21 +1,24 @@
 import { useState } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import {
-  currentSessionAtom,
   inputTextAtom,
   isPastSessionsOpenAtom,
   serviceStatusAtom,
+  signedInEmailAtom,
 } from "../atoms";
 import { chat } from "../api/chat";
 import { UIMessage } from "ai";
 import { THINKING_MESSAGE } from "../constants";
+import { useSessionReducer } from "./useSessionReducer";
 
 export const useAiChat = () => {
   const isServiceOnline = useAtomValue(serviceStatusAtom) === "online";
   const [inputText, setInputText] = useAtom(inputTextAtom);
-  const [currentSession, setCurrentSession] = useAtom(currentSessionAtom);
+  const signedInEmail = useAtomValue(signedInEmailAtom);
   const [isLoading, setIsLoading] = useState(false);
   const setIsPastSessionsOpen = useSetAtom(isPastSessionsOpenAtom);
+
+  const { sessionDispatch } = useSessionReducer(signedInEmail);
 
   const isSendDisabled = !inputText.trim() || isLoading || !isServiceOnline;
 
@@ -27,75 +30,37 @@ export const useAiChat = () => {
       setIsPastSessionsOpen(false);
 
       try {
-        // Use existing session messages as UIMessage[]
-        const existingMessages: UIMessage[] = currentSession?.messages || [];
-
         // Add the new user message to the session
-        setCurrentSession((prev) => {
-          const newMessage: UIMessage = {
-            role: "user",
-            parts: [{ type: "text", text: inputText }],
-            id: Date.now().toString(),
-          };
-
-          if (!prev)
-            return {
-              title: inputText,
-              messages: [newMessage],
-              date: new Date().toISOString(),
-            };
-          return {
-            ...prev,
-            messages: [...prev.messages, newMessage],
-          };
-        });
-
-        // Add the new user message to the messages array for the API call
         const newUserMessage: UIMessage = {
           role: "user",
           parts: [{ type: "text", text: inputText }],
           id: Date.now().toString(),
         };
 
+        sessionDispatch({ type: "ADD_MESSAGE", message: newUserMessage });
+
+        const existingMessages: UIMessage[] = [];
+
         const allMessages = [...existingMessages, newUserMessage];
 
         const result = await chat(allMessages);
 
         if (result) {
-          setCurrentSession((prev) => {
-            if (!prev) return prev;
+          const aiMessage: UIMessage = {
+            role: "assistant",
+            parts: [{ type: "text", text: THINKING_MESSAGE }],
+            id: Date.now().toString() + "-ai",
+          };
 
-            const aiMessage: UIMessage = {
-              role: "assistant",
-              parts: [{ type: "text", text: THINKING_MESSAGE }],
-              id: Date.now().toString() + "-ai",
-            };
-
-            return {
-              ...prev,
-              messages: [...prev.messages, aiMessage],
-            };
-          });
+          sessionDispatch({ type: "ADD_MESSAGE", message: aiMessage });
 
           // Stream the AI response
           let fullResponse = "";
           for await (const chunk of result.textStream) {
             fullResponse += chunk;
-
-            setCurrentSession((prev) => {
-              if (!prev) return prev;
-
-              const updatedMessages = [...prev.messages];
-              const lastMessage = updatedMessages[updatedMessages.length - 1];
-
-              if (lastMessage && lastMessage.role === "assistant") {
-                lastMessage.parts = [{ type: "text", text: fullResponse }];
-              }
-
-              return {
-                ...prev,
-                messages: updatedMessages,
-              };
+            sessionDispatch({
+              type: "UPDATE_LAST_MESSAGE",
+              text: fullResponse,
             });
           }
         }
@@ -103,25 +68,18 @@ export const useAiChat = () => {
         console.error("Chat error:", error);
 
         // Add error message to session
-        setCurrentSession((prev) => {
-          if (!prev) return prev;
+        const errorMessage: UIMessage = {
+          role: "assistant",
+          parts: [
+            {
+              type: "text",
+              text: "Sorry, I encountered an error. Please try again.",
+            },
+          ],
+          id: Date.now().toString() + "-error",
+        };
 
-          const errorMessage: UIMessage = {
-            role: "assistant",
-            parts: [
-              {
-                type: "text",
-                text: "Sorry, I encountered an error. Please try again.",
-              },
-            ],
-            id: Date.now().toString() + "-error",
-          };
-
-          return {
-            ...prev,
-            messages: [...prev.messages, errorMessage],
-          };
-        });
+        sessionDispatch({ type: "ADD_MESSAGE", message: errorMessage });
       } finally {
         setIsLoading(false);
       }

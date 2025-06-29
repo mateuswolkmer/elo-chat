@@ -22,9 +22,23 @@ export const currentSessionAtom = atomWithStorage<Session | null>(
   "elo_currentSession",
   null
 );
+
+// Store all user sessions in localStorage
+export const allUserSessionsAtom = atomWithStorage<{
+  [email: string]: Session[];
+}>("elo_allUserSessions", {});
+
 export const userSessionsAtom = atom<Session[]>((get) => {
   const email = get(signedInEmailAtom);
-  return email ? SESSIONS_MOCK[email] : [];
+  const allSessions = get(allUserSessionsAtom);
+
+  if (!email) return [];
+
+  if (!allSessions[email]) {
+    return SESSIONS_MOCK[email] || [];
+  }
+
+  return allSessions[email];
 });
 
 // layout atoms

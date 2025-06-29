@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { shouldShowEmailInputAtom, signedInEmailAtom } from "../atoms";
+import {
+  shouldShowEmailInputAtom,
+  signedInEmailAtom,
+  currentSessionAtom,
+} from "../atoms";
 import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { SPRING_SETTINGS } from "../constants";
 import { twMerge } from "tailwind-merge";
 import { SignInIcon } from "./icons/SignInIcon";
 import { validateEmail } from "../utils/emailValidation";
+import { useSessionReducer } from "../hooks/useSessionReducer";
 
 export type EmailInputProps = {};
 
 export const EmailInput: React.FC<EmailInputProps> = () => {
   const showEmailInput = useAtomValue(shouldShowEmailInputAtom);
   const setSignedInEmail = useSetAtom(signedInEmailAtom);
+  const currentSession = useAtomValue(currentSessionAtom);
 
   const [email, setEmail] = useState("");
   const [isFocused, setIsFocused] = useState(false);
@@ -21,6 +27,8 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
     isValid: boolean;
     error?: string;
   }>({ isValid: false });
+
+  const { sessionDispatch } = useSessionReducer(email);
 
   useEffect(() => {
     setIsExpanded(isFocused || Boolean(email));
@@ -37,6 +45,13 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
     if (!isSendDisabled) {
       setEmail("");
       setSignedInEmail(email);
+
+      // If there's a current session with messages, save it for the new user
+      if (currentSession && currentSession.messages.length > 0) {
+        sessionDispatch({ type: "LOGIN_USER", email, currentSession });
+      } else {
+        sessionDispatch({ type: "INITIALIZE_USER", email });
+      }
     }
   };
 

@@ -9,14 +9,14 @@ import {
 import { UserInput } from "./UserInput";
 import { PastSessions } from "./PastSessions";
 import { EmailInput } from "./EmailInput";
-import { motion } from "motion/react";
+import { HTMLMotionProps, motion } from "motion/react";
 import { SPRING_SETTINGS } from "../constants";
 import { MessagesList } from "./MessagesList";
 import { initGoogle } from "../api/chat";
 import { twMerge } from "tailwind-merge";
 import { DevTools } from "./DevTools";
 
-export type EloWidgetProps = {
+export type EloWidgetProps = HTMLMotionProps<"div"> & {
   googleApiKey?: string;
   googleModelId?: string;
   enableDevTools?: boolean;
@@ -27,6 +27,8 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
     googleApiKey,
     googleModelId = "gemini-2.5-flash",
     enableDevTools = true,
+    className,
+    ...rest
   } = props;
 
   const isServiceOnline = useAtomValue(serviceStatusAtom) === "online";
@@ -62,8 +64,12 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           ...SPRING_SETTINGS,
           delay: 0.5,
         }}
-        className="fixed bottom-10 right-10 text-foreground z-10"
+        className={twMerge(
+          "fixed bottom-10 right-10 text-foreground z-10",
+          className
+        )}
         onClick={() => setIsOpen(true)}
+        {...rest}
       >
         <svg
           width="65"

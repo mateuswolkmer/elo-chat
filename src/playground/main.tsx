@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import ReactDOM from "react-dom/client";
 import "../index.css";
 import { EloWidget } from "../components/EloWidget";
