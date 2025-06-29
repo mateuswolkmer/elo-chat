@@ -6,7 +6,10 @@
     "react",
     "component",
     "widget",
-    "typescript"
+    "typescript",
+    "chat",
+    "ai",
+    "gemini"
   ],
   "homepage": "https://github.com/mateuswolkmer/elo-chat#readme",
   "bugs": {
@@ -27,8 +30,12 @@
       "import": "./dist/elo-chat.js",
       "require": "./dist/elo-chat.umd.cjs",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./styles": "./dist/style.css"
   },
+  "sideEffects": [
+    "./dist/style.css"
+  ],
   "files": [
     "dist"
   ],

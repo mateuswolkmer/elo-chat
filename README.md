@@ -19,14 +19,21 @@ npm install @zuzu.blue/elo-chat
 
 ## Usage
 
+### 1. Import the component and styles
+
 ```tsx
 import { EloWidget } from "@zuzu.blue/elo-chat";
+import "@zuzu.blue/elo-chat/styles";
+```
 
+### 2. Use the component
+
+```tsx
 function App() {
   return (
     <div>
       <h1>My Website</h1>
-      <EloWidget openaiApiKey={process.env.VITE_GOOGLE_API_KEY} />
+      <EloWidget googleApiKey={process.env.VITE_GOOGLE_API_KEY} />
     </div>
   );
 }
@@ -62,6 +69,7 @@ The widget initial animation can also be customized through [`motion.div`](https
 
 ```tsx
 import { EloWidget } from "@zuzu.blue/elo-chat";
+import "@zuzu.blue/elo-chat/styles";
 
 function App() {
   return (
