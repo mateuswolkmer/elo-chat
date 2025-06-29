@@ -77,14 +77,14 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                   ...SPRING_SETTINGS,
                   delay: 0.5,
                 }}
-                className="elo:text-nowrap elo:h-10 elo:rounded-full elo:bg-primary elo:p-2 dark elo:text-foreground"
+                className="elo:text-nowrap elo:h-10 elo:rounded-full elo:bg-primary elo:p-2 elo:text-foreground-dark"
                 onClick={handleSignOut}
               >
                 <SignOutIcon className="elo:size-6" />
               </motion.button>
               {/* Sessions button */}
               <button
-                className="elo:text-nowrap elo:h-10 elo:rounded-full elo:bg-primary elo:py-2 elo:px-4 dark elo:text-foreground"
+                className="elo:text-nowrap elo:h-10 elo:rounded-full elo:bg-primary elo:py-2 elo:px-4 elo:text-foreground-dark"
                 onClick={() => setIsOpen(true)}
               >
                 Sessions
@@ -114,7 +114,7 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                   damping: 35,
                   duration: 0.3,
                 }}
-                className="elo:max-w-widget elo:absolute elo:bottom-20 elo:right-0 elo:w-60 elo:py-2 elo:bg-primary dark elo:text-foreground elo:rounded-3xl elo:overflow-hidden"
+                className="elo:max-w-widget elo:absolute elo:bottom-20 elo:right-0 elo:w-60 elo:py-2 elo:bg-primary elo:text-foreground-dark elo:rounded-3xl elo:overflow-hidden"
               >
                 <motion.div
                   className="elo:flex elo:flex-col elo:size-full"
@@ -123,9 +123,9 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                   exit={{ opacity: 0 }}
                   transition={{ delay: 0.1 }}
                 >
-                  <div className="relative">
+                  <div className="elo:relative">
                     <button
-                      className="elo:absolute elo:top-2 elo:left-2 elo:cursor-pointer elo:hover:scale-105 elo:transition-transform"
+                      className="elo:absolute elo:top-0 elo:left-2 elo:cursor-pointer elo:hover:scale-105 elo:transition-transform"
                       title="New session"
                       onClick={handleNewSession}
                     >
@@ -140,13 +140,13 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                       Sessions
                     </motion.h2>
                     <button
-                      className="elo:absolute elo:top-2 elo:right-2 elo:cursor-pointer elo:hover:scale-105 elo:transition-transform"
+                      className="elo:absolute elo:top-0 elo:right-2 elo:cursor-pointer elo:hover:scale-105 elo:transition-transform"
                       onClick={() => setIsOpen(false)}
                     >
                       <CollapseIcon className="elo:size-6" />
                     </button>
                   </div>
-                  <div className="elo:w-full elo:h-px elo:bg-foreground/15 elo:mt-1"></div>
+                  <div className="elo:w-full elo:h-px elo:bg-foreground-dark/15 elo:mt-1"></div>
                   {!sessions?.length && (
                     <p className="elo:text-sm elo:py-4 elo:text-center">
                       No sessions yet
@@ -164,7 +164,7 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                         className="elo:flex elo:flex-col elo:rounded-lg elo:w-full"
                       >
                         {i > 0 && (
-                          <div className="elo:w-full elo:h-px elo:bg-foreground/15 elo:mx-2"></div>
+                          <div className="elo:w-full elo:h-px elo:bg-foreground-dark/15 elo:mx-2"></div>
                         )}
                         <button
                           className={twMerge(
@@ -179,7 +179,7 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                           <h3 className="elo:text-md elo:truncate elo:w-full">
                             {session.title}
                           </h3>
-                          <span className="elo:text-foreground/50 elo:text-xs">
+                          <span className="elo:text-foreground-dark/50 elo:text-xs">
                             {new Date(session.date).toLocaleDateString(
                               "en-US",
                               {

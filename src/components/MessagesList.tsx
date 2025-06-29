@@ -70,10 +70,10 @@ export const MessagesList: React.FC = () => {
                 }}
                 key={i}
                 className={twMerge(
-                  "elo:max-w-80 elo:py-2 elo:px-4 elo:rounded-3xl elo:text-foreground",
+                  "elo:max-w-80 elo:py-2 elo:px-4 elo:rounded-3xl",
                   message.role === "user"
-                    ? "elo:self-end elo:bg-primary-light"
-                    : "elo:self-start elo:bg-primary dark"
+                    ? "elo:self-end elo:bg-primary-light elo:text-foreground"
+                    : "elo:self-start elo:bg-primary elo:text-foreground-dark"
                 )}
               >
                 <span className={twMerge(isThinking && "elo:animate-pulse")}>

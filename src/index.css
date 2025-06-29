@@ -1,7 +1,5 @@
 @import "tailwindcss" prefix(elo);
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --color-primary: #6f33b7;
   --color-primary-light: #d1b5ff;
@@ -14,12 +12,8 @@
   --color-background: #faf7f2;
   --color-foreground: #262623;
 
-  --spacing-widget: calc(100vw - 2rem);
-}
+  --color-background-dark: #3d3b3a;
+  --color-foreground-dark: #ffffff;
 
-@layer base {
-  .dark {
-    --elo-color-background: #3d3b3a;
-    --elo-color-foreground: #ffffff;
-  }
+  --spacing-widget: calc(100vw - 2rem);
 }

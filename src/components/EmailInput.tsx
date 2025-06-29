@@ -67,10 +67,8 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
           animate={{
             scale: 1,
             opacity: isFocused || isHovered ? 1 : 0.5,
-            right: isExpanded ? "calc(var(--elo-spacing) * 2.5)" : "0rem",
-            width: isExpanded
-              ? "calc(var(--elo-spacing) * 60)"
-              : "calc(var(--elo-spacing) * 36)",
+            right: isExpanded ? "0.625rem" : "0rem",
+            width: isExpanded ? "15rem" : "9rem",
           }}
           exit={{
             scale: 0,
@@ -125,7 +123,7 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
                     "elo:m-1 elo:p-1 elo:rounded-full elo:row-start-1 elo:col-start-2 elo:transition-colors",
                     isSendDisabled
                       ? "elo:bg-gray-300 elo:text-gray-400 elo:cursor-not-allowed"
-                      : "elo:bg-primary dark elo:text-foreground elo:cursor-pointer"
+                      : "elo:bg-primary elo:text-foreground-dark elo:cursor-pointer"
                   )}
                   disabled={isSendDisabled}
                   title={validationResult.error}

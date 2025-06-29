@@ -25,15 +25,16 @@ export const UserInput: React.FC<UserInputProps> = () => {
       {isOpen && (
         <motion.form
           onSubmit={handleSubmit}
-          initial={{ width: "calc(var(--elo-spacing) * 14)", opacity: 0 }}
-          animate={{ width: "calc(var(--elo-spacing) * 96)", opacity: 1 }}
-          exit={{ width: "calc(var(--elo-spacing) * 14)", opacity: 0 }}
+          initial={{ width: "3.5rem", opacity: 0 }}
+          animate={{ width: "24rem", opacity: 1 }}
+          exit={{ width: "3.5rem", opacity: 0 }}
           transition={SPRING_SETTINGS}
           className={twMerge(
             "elo:max-w-widget elo:absolute elo:top-0 elo:right-0 elo:overflow-hidden elo:h-14 elo:rounded-full elo:p-2",
-            isServiceOnline && "elo:bg-primary-light",
-            isServiceMaintenance && "elo:bg-secondary-light",
-            isServiceOffline && "elo:bg-secondary dark"
+            isServiceOnline && "elo:bg-primary-light elo:text-foreground ",
+            isServiceMaintenance &&
+              "elo:bg-secondary-light elo:text-foreground",
+            isServiceOffline && "elo:bg-secondary elo:text-foreground-dark"
           )}
         >
           <div className="elo:relative elo:size-full elo:grid elo:grid-cols-[1fr_auto] elo:gap-2">
@@ -53,7 +54,7 @@ export const UserInput: React.FC<UserInputProps> = () => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.2, ease: "circInOut", delay: 0.5 }}
                 className={twMerge(
-                  "elo:m-1 elo:mr-1.5 elo:p-1 elo:bg-primary dark elo:text-foreground elo:rounded-full elo:transition-opacity",
+                  "elo:m-1 elo:mr-1.5 elo:p-1 elo:bg-primary elo:text-foreground-dark elo:rounded-full elo:transition-opacity",
                   isSendDisabled ? "elo:opacity-50" : "elo:cursor-pointer"
                 )}
                 disabled={isSendDisabled}
