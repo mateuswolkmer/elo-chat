@@ -6,7 +6,7 @@ A React component that adds Elo, a financial assistant chat widget, to your webs
 
 - 💬 Financial assistant chat powered by Google Gemini
 - 🎨 Animated UI with Tailwind CSS and Motion
-- Customizable colors 💄
+- 💄 Customizable colors
 - 📱 Responsive design
 - 📧 Email-based session management (local)
 - 💾 Persistent chat sessions
@@ -36,8 +36,9 @@ function App() {
 
 ### Props
 
-- `googleApiKey` (string)\*: your Google API key
+- `googleApiKey` (string) \*: your Google API key
 - `googleApiModel` (string): the Google API model to use. Defaults to "gemini-2.5-flash"
+- `enableDevTools` (boolean): whether to show the dev tools. Defaults to `true`
 
 ### Styling
 
@@ -126,7 +127,3 @@ npm run build
 # Run tests
 npm test
 ```
-
-## License
-
-ISC
