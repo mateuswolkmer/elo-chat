@@ -8,12 +8,12 @@ export const DevTools: React.FC = () => {
   const [serviceStatus, setServiceStatus] = useAtom(serviceStatusAtom);
 
   return (
-    <div className="fixed flex flex-col gap-1 left-10 bottom-10 w-60 p-2 bg-background dark text-foreground rounded-lg overflow-hidden text-sm opacity-50 hover:opacity-100 transition-opacity">
-      <h2 className="text-center font-bold">Elo Widget dev tools</h2>
+    <div className="elo:fixed elo:flex elo:flex-col elo:gap-1 elo:left-10 elo:bottom-10 elo:w-60 elo:p-2 elo:bg-background dark elo:text-foreground elo:rounded-lg elo:overflow-hidden elo:text-sm elo:opacity-50 elo:hover:opacity-100 elo:transition-opacity">
+      <h2 className="elo:text-center elo:font-bold">Elo Widget dev tools</h2>
 
-      <div className="w-full h-px bg-foreground/15 mt-1"></div>
+      <div className="elo:w-full elo:h-px elo:bg-foreground/15 elo:mt-1"></div>
 
-      <h3 className="">Set status:</h3>
+      <h3>Set status:</h3>
       {Object.entries(SERVICE_STATUS).map(([status, { color, label }]) => {
         const isActive = serviceStatus === status;
 
@@ -21,25 +21,27 @@ export const DevTools: React.FC = () => {
           <button
             key={status}
             className={twMerge(
-              "text-left border-1 rounded-md flex gap-2 px-2 items-center cursor-pointer",
-              isActive ? `border-[var(--color)]` : `border-[var(--color)]/25`
+              "elo:text-left elo:border-1 elo:rounded-md elo:flex elo:gap-2 elo:px-2 elo:items-center elo:cursor-pointer",
+              isActive
+                ? `elo:border-[var(--color)]`
+                : `elo:border-[var(--color)]/25`
             )}
             onClick={() => setServiceStatus(status as any)}
             style={
-              { "--color": `var(--color-${color})` } as React.CSSProperties
+              { "--color": `var(--elo-color-${color})` } as React.CSSProperties
             }
           >
             <div
               className={twMerge(
-                "size-1 rounded-full grid place-items-center",
-                isActive ? `bg-[var(--color)]` : "bg-foreground/25"
+                "elo:size-1 elo:rounded-full elo:grid elo:place-items-center",
+                isActive ? `elo:bg-[var(--color)]` : "elo:bg-foreground/25"
               )}
             >
               {isActive && (
                 <div
                   className={twMerge(
-                    "animate-ping rounded-full size-[120%]",
-                    `bg-[var(--color)]`
+                    "elo:animate-ping elo:rounded-full elo:size-[120%]",
+                    `elo:bg-[var(--color)]`
                   )}
                 />
               )}

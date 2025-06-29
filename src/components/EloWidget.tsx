@@ -65,7 +65,7 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           delay: 0.5,
         }}
         className={twMerge(
-          "fixed bottom-4 right-4 lg:bottom-10 lg:right-10 text-foreground z-10 group",
+          "elo:fixed elo:bottom-4 elo:right-4 elo:lg:bottom-10 elo:lg:right-10 elo:text-foreground elo:z-10 elo:group",
           className
         )}
         onClick={() => setIsOpen(true)}
@@ -77,7 +77,7 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           viewBox="0 0 37 41"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="cursor-pointer"
+          className="elo:cursor-pointer"
         >
           <defs>
             <clipPath id="elo-clip">
@@ -89,25 +89,25 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           </defs>
           <path
             className={twMerge(
-              "transition-all",
-              isServiceOnline && "fill-primary-light",
-              isServiceMaintenance && "fill-secondary-light",
-              isServiceOffline && "fill-secondary"
+              "elo:transition-all",
+              isServiceOnline && "elo:fill-primary-light",
+              isServiceMaintenance && "elo:fill-secondary-light",
+              isServiceOffline && "elo:fill-secondary"
             )}
             d="M19.6436 7.65217C13.2225 7.65217 8.16525 12.8269 8.16525 19.1304C8.16525 26.5824 14.1045 32.5217 21.5567 32.5217V40.1739C9.87825 40.1739 0.513123 30.8086 0.513123 19.1304C0.513123 8.65771 8.93955 0 19.6436 0C29.4318 0 36.861 7.48766 36.861 17.2174C36.861 25.795 30.1248 32.5217 21.5567 32.5217V24.8696C25.9015 24.8696 29.2088 21.5659 29.2088 17.2174C29.2088 11.6978 25.1896 7.65217 19.6436 7.65217Z"
           />
           <path
             className={twMerge(
-              "transition-all",
-              isServiceOnline && "fill-primary",
-              isServiceMaintenance && "fill-secondary",
-              isServiceOffline && "fill-secondary"
+              "elo:transition-all",
+              isServiceOnline && "elo:fill-primary",
+              isServiceMaintenance && "elo:fill-secondary",
+              isServiceOffline && "elo:fill-secondary"
             )}
             d="M19.6436 7.65217C13.2225 7.65217 8.16525 12.8269 8.16525 19.1304C8.16525 26.5824 14.1045 32.5217 21.5567 32.5217V24.8696C25.9015 24.8696 29.2088 21.5659 29.2088 17.2174C29.2088 11.6978 25.1896 7.65217 19.6436 7.65217Z"
           />
         </svg>
         <div
-          className="absolute inset-0 size-full overflow-hidden pointer-events-none"
+          className="elo:absolute elo:inset-0 elo:size-full elo:overflow-hidden elo:pointer-events-none"
           style={{
             clipPath: "url(#elo-clip)",
             WebkitClipPath: "url(#elo-clip)",
@@ -115,22 +115,22 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
         >
           <div
             className={twMerge(
-              "absolute right-4 rounded-3xl size-full bg-gradient-to-bl to-background/10 opacity-25 group-hover:opacity-100 transition-all duration-1000",
+              "elo:absolute elo:right-4 elo:rounded-3xl elo:size-full elo:bg-gradient-to-bl elo:to-background/10 elo:opacity-25 elo:group-hover:opacity-100 elo:transition-all elo:duration-1000",
               isServiceOnline &&
-                "from-secondary/50 top-6 animate-[spin_10s_linear_infinite] ",
+                "elo:from-secondary/50 elo:top-6 elo:animate-[spin_10s_linear_infinite] ",
               isServiceMaintenance &&
-                "from-secondary-light/50 top-8 animate-[spin_20s_linear_infinite] ",
-              isServiceOffline && "from-secondary-light/50 top-10"
+                "elo:from-secondary-light/50 elo:top-8 elo:animate-[spin_20s_linear_infinite] ",
+              isServiceOffline && "elo:from-secondary-light/50 elo:top-10"
             )}
           />
           <div
             className={twMerge(
-              "absolute left-4 rounded-3xl size-full bg-gradient-to-br to-background/10 opacity-25 group-hover:opacity-100 transition-all duration-1000",
+              "elo:absolute elo:left-4 elo:rounded-3xl elo:size-full elo:bg-gradient-to-br elo:to-background/10 elo:opacity-25 elo:group-hover:opacity-100 elo:transition-all elo:duration-1000",
               isServiceOnline &&
-                "from-secondary top-6 animate-[spin_5s_linear_infinite]",
+                "elo:from-secondary elo:top-6 elo:animate-[spin_5s_linear_infinite]",
               isServiceMaintenance &&
-                "from-secondary-light top-8 animate-[spin_15s_linear_infinite]",
-              isServiceOffline && "from-secondary-light top-10"
+                "elo:from-secondary-light elo:top-8 elo:animate-[spin_15s_linear_infinite]",
+              isServiceOffline && "elo:from-secondary-light elo:top-10"
             )}
           />
         </div>

@@ -1,5 +1,4 @@
 import { Transition } from "motion";
-import { UIMessage } from "ai";
 
 export const SPRING_SETTINGS: Transition = {
   type: "spring",

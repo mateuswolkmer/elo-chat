@@ -37,7 +37,7 @@ export const MessagesList: React.FC = () => {
           style={{
             transformOrigin: "bottom right",
           }}
-          className="max-w-widget flex flex-col gap-2 absolute bottom-40 right-0 w-96 max-h-[50vh] rounded-lg"
+          className="elo:max-w-widget elo:flex elo:flex-col elo:gap-2 elo:absolute elo:bottom-40 elo:right-0 elo:w-96 elo:max-h-[50vh] elo:rounded-lg"
           // without this, it always adds a scrollbar during animationx
           onAnimationComplete={() => {
             if (containerRef.current) {
@@ -70,13 +70,13 @@ export const MessagesList: React.FC = () => {
                 }}
                 key={i}
                 className={twMerge(
-                  "max-w-80 py-2 px-4 rounded-3xl text-foreground",
+                  "elo:max-w-80 elo:py-2 elo:px-4 elo:rounded-3xl elo:text-foreground",
                   message.role === "user"
-                    ? "self-end bg-primary-light"
-                    : "self-start bg-primary dark"
+                    ? "elo:self-end elo:bg-primary-light"
+                    : "elo:self-start elo:bg-primary dark"
                 )}
               >
-                <span className={twMerge(isThinking && "animate-pulse")}>
+                <span className={twMerge(isThinking && "elo:animate-pulse")}>
                   {!isAssistant
                     ? messageText
                     : messageText.split("").map((letter, index) => (

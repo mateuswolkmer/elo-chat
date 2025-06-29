@@ -67,10 +67,10 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
           animate={{
             scale: 1,
             opacity: isFocused || isHovered ? 1 : 0.5,
-            right: isExpanded ? "calc(var(--spacing) * 2.5)" : "0rem",
+            right: isExpanded ? "calc(var(--elo-spacing) * 2.5)" : "0rem",
             width: isExpanded
-              ? "calc(var(--spacing) * 60)"
-              : "calc(var(--spacing) * 36)",
+              ? "calc(var(--elo-spacing) * 60)"
+              : "calc(var(--elo-spacing) * 36)",
           }}
           exit={{
             scale: 0,
@@ -95,15 +95,15 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
             transformOrigin: "bottom right",
           }}
           className={twMerge(
-            "absolute bottom-20 h-10 bg-primary-light rounded-full p-1"
+            "elo:absolute elo:bottom-20 elo:h-10 elo:bg-primary-light elo:rounded-full elo:p-1"
           )}
         >
-          <div className="relative size-full grid grid-cols-[1fr_auto] gap-2 items-center">
+          <div className="elo:relative elo:size-full elo:grid elo:grid-cols-[1fr_auto] elo:gap-2 elo:items-center">
             <input
               type="email"
               className={twMerge(
-                "w-full h-full rounded-full py-2 pl-4 focus:outline-none text-sm col-start-1 row-start-1 placeholder:text-foreground/50",
-                !isExpanded && "col-span-2 z-1"
+                "elo:w-full elo:h-full elo:rounded-full elo:py-2 elo:pl-4 elo:focus:outline-none elo:text-sm elo:col-start-1 elo:row-start-1 elo:placeholder:text-foreground/50",
+                !isExpanded && "elo:col-span-2 elo:z-1"
               )}
               placeholder="your@email.com"
               onMouseEnter={() => setIsHovered(true)}
@@ -122,15 +122,15 @@ export const EmailInput: React.FC<EmailInputProps> = () => {
                   exit={{ scale: 0 }}
                   transition={SPRING_SETTINGS}
                   className={twMerge(
-                    "m-1 p-1 rounded-full row-start-1 col-start-2 transition-colors",
+                    "elo:m-1 elo:p-1 elo:rounded-full elo:row-start-1 elo:col-start-2 elo:transition-colors",
                     isSendDisabled
-                      ? "bg-gray-300 text-gray-400 cursor-not-allowed"
-                      : "bg-primary dark text-foreground cursor-pointer"
+                      ? "elo:bg-gray-300 elo:text-gray-400 elo:cursor-not-allowed"
+                      : "elo:bg-primary dark elo:text-foreground elo:cursor-pointer"
                   )}
                   disabled={isSendDisabled}
                   title={validationResult.error}
                 >
-                  <SignInIcon className="size-4" />
+                  <SignInIcon className="elo:size-4" />
                 </motion.button>
               )}
             </AnimatePresence>

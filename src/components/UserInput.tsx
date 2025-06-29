@@ -25,21 +25,21 @@ export const UserInput: React.FC<UserInputProps> = () => {
       {isOpen && (
         <motion.form
           onSubmit={handleSubmit}
-          initial={{ width: "calc(var(--spacing) * 14)", opacity: 0 }}
-          animate={{ width: "calc(var(--spacing) * 96)", opacity: 1 }}
-          exit={{ width: "calc(var(--spacing) * 14)", opacity: 0 }}
+          initial={{ width: "calc(var(--elo-spacing) * 14)", opacity: 0 }}
+          animate={{ width: "calc(var(--elo-spacing) * 96)", opacity: 1 }}
+          exit={{ width: "calc(var(--elo-spacing) * 14)", opacity: 0 }}
           transition={SPRING_SETTINGS}
           className={twMerge(
-            "max-w-widget absolute top-0 right-0 overflow-hidden h-14 rounded-full p-2",
-            isServiceOnline && "bg-primary-light",
-            isServiceMaintenance && "bg-secondary-light",
-            isServiceOffline && "bg-secondary dark"
+            "elo:max-w-widget elo:absolute elo:top-0 elo:right-0 elo:overflow-hidden elo:h-14 elo:rounded-full elo:p-2",
+            isServiceOnline && "elo:bg-primary-light",
+            isServiceMaintenance && "elo:bg-secondary-light",
+            isServiceOffline && "elo:bg-secondary dark"
           )}
         >
-          <div className="relative size-full grid grid-cols-[1fr_auto] gap-2">
+          <div className="elo:relative elo:size-full elo:grid elo:grid-cols-[1fr_auto] elo:gap-2">
             <input
               type="text"
-              className="w-full h-full rounded-full py-2 px-4 focus:outline-none placeholder:text-foreground/50"
+              className="elo:w-full elo:h-full elo:rounded-full elo:py-2 elo:px-4 elo:focus:outline-none elo:placeholder:text-foreground/50"
               placeholder={SERVICE_STATUS[serviceStatus].inputPlaceholder}
               autoFocus
               value={inputText}
@@ -53,12 +53,12 @@ export const UserInput: React.FC<UserInputProps> = () => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.2, ease: "circInOut", delay: 0.5 }}
                 className={twMerge(
-                  "m-1 mr-1.5 p-1 bg-primary dark text-foreground rounded-full transition-opacity",
-                  isSendDisabled ? "opacity-50" : "cursor-pointer"
+                  "elo:m-1 elo:mr-1.5 elo:p-1 elo:bg-primary dark elo:text-foreground elo:rounded-full elo:transition-opacity",
+                  isSendDisabled ? "elo:opacity-50" : "elo:cursor-pointer"
                 )}
                 disabled={isSendDisabled}
               >
-                <SendIcon className="size-6" />
+                <SendIcon className="elo:size-6" />
               </motion.button>
             )}
           </div>

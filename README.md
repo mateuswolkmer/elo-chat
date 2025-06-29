@@ -42,18 +42,18 @@ function App() {
 
 ### Styling
 
-It's possible to modify the widget styles via CSS variables, powered by [Tailwind CSS theme variables](https://tailwindcss.com/docs/theme). These are the default variables:
+It's possible to modify the widget styles via CSS variables, powered by [Tailwind CSS theme variables](https://tailwindcss.com/docs/theme). All of the variables are prefixed with `elo`, to not conflict with other project styles. These are the default variables:
 
 ```css
---color-primary: #6f33b7;
---color-primary-light: #d1b5ff;
---color-secondary: #eb6c52;
---color-secondary-light: #ffdfc5;
---color-success: #0fdb9b;
---color-success-light: #9fffe0;
---color-info: #53acd0;
---color-background: #faf7f2;
---color-foreground: #262623;
+--elo-color-primary: #6f33b7;
+--elo-color-primary-light: #d1b5ff;
+--elo-color-secondary: #eb6c52;
+--elo-color-secondary-light: #ffdfc5;
+--elo-color-success: #0fdb9b;
+--elo-color-success-light: #9fffe0;
+--elo-color-info: #53acd0;
+--elo-color-background: #faf7f2;
+--elo-color-foreground: #262623;
 ```
 
 The widget initial animation can also be customized through [`motion.div`](https://motion.dev/docs/react-motion-component) props.
@@ -71,8 +71,8 @@ function App() {
         googleApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
         style={
           {
-            "--color-primary": "red",
-            "--color-primary-light": "orange",
+            "--elo-color-primary": "red",
+            "--elo-color-primary-light": "orange",
           } as CSSProperties
         }
         transition={{ duration: 0 }} // disables the initial animation

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" prefix(elo);
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -19,7 +19,7 @@
 
 @layer base {
   .dark {
-    --color-background: #3d3b3a;
-    --color-foreground: #ffffff;
+    --elo-color-background: #3d3b3a;
+    --elo-color-foreground: #ffffff;
   }
 }
