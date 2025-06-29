@@ -65,7 +65,7 @@ export const EloWidget: React.FC<EloWidgetProps> = (props) => {
           delay: 0.5,
         }}
         className={twMerge(
-          "fixed bottom-10 right-10 text-foreground z-10 group",
+          "fixed bottom-4 right-4 lg:bottom-10 lg:right-10 text-foreground z-10 group",
           className
         )}
         onClick={() => setIsOpen(true)}

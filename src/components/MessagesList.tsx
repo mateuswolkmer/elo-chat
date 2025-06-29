@@ -37,7 +37,7 @@ export const MessagesList: React.FC = () => {
           style={{
             transformOrigin: "bottom right",
           }}
-          className="flex flex-col gap-2 absolute bottom-40 right-0 w-96 max-h-[50vh] rounded-lg"
+          className="max-w-widget flex flex-col gap-2 absolute bottom-40 right-0 w-96 max-h-[50vh] rounded-lg"
           // without this, it always adds a scrollbar during animationx
           onAnimationComplete={() => {
             if (containerRef.current) {

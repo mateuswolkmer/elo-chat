@@ -30,7 +30,7 @@ export const UserInput: React.FC<UserInputProps> = () => {
           exit={{ width: "calc(var(--spacing) * 14)", opacity: 0 }}
           transition={SPRING_SETTINGS}
           className={twMerge(
-            "absolute top-0 right-0 overflow-hidden h-14 rounded-full p-2",
+            "max-w-widget absolute top-0 right-0 overflow-hidden h-14 rounded-full p-2",
             isServiceOnline && "bg-primary-light",
             isServiceMaintenance && "bg-secondary-light",
             isServiceOffline && "bg-secondary dark"

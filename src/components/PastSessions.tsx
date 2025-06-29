@@ -114,7 +114,7 @@ export const PastSessions: React.FC<PastSessionsProps> = () => {
                   damping: 35,
                   duration: 0.3,
                 }}
-                className="absolute bottom-20 right-0 w-60 py-2 bg-primary dark text-foreground rounded-3xl overflow-hidden"
+                className="max-w-widget absolute bottom-20 right-0 w-60 py-2 bg-primary dark text-foreground rounded-3xl overflow-hidden"
               >
                 <motion.div
                   className="flex flex-col size-full"
