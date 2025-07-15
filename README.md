@@ -147,3 +147,7 @@ npm test
 # Release a new version using release-it
 npm run release
 ```
+
+## License
+
+MIT
